@@ -1,0 +1,17 @@
+<!--<?xml version="1.0" encoding="UTF-8"?>-->
+<!--<Configuration status="warn">-->
+<!--    <Appenders>-->
+<!--        <RollingFile name="MyFile" fileName="/logs/demo-${date:yyyy-MM-dd}.log" filePattern="/logs/demo-%d{yyyy-MM-dd}-%i.log">-->
+<!--            <PatternLayout pattern="%d{ISO8601} [%t] %-5level %logger{36} - %msg%n" />-->
+<!--            <Policies>-->
+<!--                <TimeBasedTriggeringPolicy interval="1" modulate="true" />-->
+<!--            </Policies>-->
+<!--            <DefaultRolloverStrategy max="10" />-->
+<!--        </RollingFile>-->
+<!--    </Appenders>-->
+<!--    <Loggers>-->
+<!--        <Root level="info">-->
+<!--            <AppenderRef ref="MyFile" />-->
+<!--        </Root>-->
+<!--    </Loggers>-->
+<!--</Configuration>-->

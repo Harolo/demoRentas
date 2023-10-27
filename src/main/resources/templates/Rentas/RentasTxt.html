@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link th:href="@{css/heroic-features.css}" rel="stylesheet">
+</head>
+<body>
+<div th:include="~{Navbar/NavbarHome.html::header}"></div>
+<h3>Rentas</h3>
+<div class="container hola border">
+    <div class="border encojer col-md-4">
+        <form th:action="@{/uploadTXTRentas}" method="post" enctype="multipart/form-data">
+            <div class="mb-3">
+               <label for="formFileSm" class="form-label">subir archivo TXT</label>
+               <input class="form-control form-control-sm" name="fileTxt" id="fileTxt" type="file" required>
+               <br>
+              <input type="submit" class="btn btn-primary" value="Subir Archivo">
+            </div>
+        </form>
+    </div>
+
+    <div class="border encojer col-md-4">
+            <form th:action="@{/uploadZIPRentas}" method="post" enctype="multipart/form-data">
+                <div class="mb-3">
+                    <label for="formFileSm" class="form-label">subir archivo ZIP</label>
+                    <input class="form-control form-control-sm" name="fileZip" id="fileZip" type="file" required>
+                    <br>
+                    <input type="submit" class="btn btn-primary" value="Subir Archivo">
+                </div>
+            </form>
+    </div>
+
+
+
+
+    <div class="border encojer col-md-3">
+        <label lass="form-label"> probar servicio rentas</label><br>
+        <a class="btn btn-danger " href="probarServicioRentas">pruebame</a>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:include="~{Navbar/NavbarHome.html::header}"></div>
+<div class="container border col-md-6">
+    <h3>Error al subir el archivo, puede deberse a lo sigueinte:</h3>
+    <p th:text="${errorMessage+',  dirijase a la pestaña correspondiente y cargue el archivo nuevamente'}"> </p>
+</div>
+
+</body>
+</html>

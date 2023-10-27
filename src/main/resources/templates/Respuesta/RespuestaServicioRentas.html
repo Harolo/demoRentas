@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link th:href="@{css/heroic-features.css}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+
+</head>
+<body>
+<div th:include="~{Navbar/NavbarHome.html::header}"></div>
+<div class="container-md">
+    <h1>Detalles Respuesta Servicio Rentas</h1>
+ <div class="hola">
+     <div class="col-6"> <p>Para mas informacion descarga los archivos dando click en el boton "Logs"</p></div>
+     <div class="col-3"><a class="btn btn-danger " href="downloadLogsRen">Logs</a></div>
+ </div><br>
+    <div>
+        <table id="miTabla" class="table table-bordered table-sm">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">Tipo de Documento</th>
+                <th scope="col">No. Documento</th>
+                <th scope="col">Pri.Nombre</th>
+                <th scope="col">Seg.Nombre</th>
+                <th scope="col">Pri.Apellido</th>
+                <th scope="col">Seg.Apellido</th>
+                <th scope="col">Código de Transacción OBP</th>
+            </tr>
+            </thead>
+            <tbody th:each="item : ${resService}">
+            <td th:text="${item.tipoIdentificacion}"></td>
+            <td th:text="${item.tipoDocumento}"></td>
+            <td th:text="${item.tipoPrimerNombre}"></td>
+            <td th:text="${item.tipoSegundoNombre}"></td>
+            <td th:text="${item.tipoPrimerApellido}"></td>
+            <td th:text="${item.tipoSegundoApellido}"></td>
+            <td th:text="${item.codigoTransaccion}"></td>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>
+
+
