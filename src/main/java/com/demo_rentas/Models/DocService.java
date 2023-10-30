@@ -11,10 +11,11 @@ import lombok.Setter;
 @NoArgsConstructor
 public class DocService {
     private String tipoDocumento;
-    private String tipoDocumentoB;
+    private String tipoIdentificacionC;
     private String tipoDocumentoC;
     private String tipoIdentificacionB;
-    private String tipoIdentificacionC;
-    private String tipoArchivo;
+    private String tipoDocumentoB;
+   private String tipoArchivo;
+   private String codigoTransaccion;
 
 }

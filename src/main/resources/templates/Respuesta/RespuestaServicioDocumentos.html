@@ -19,17 +19,21 @@
     <table id="miTabla" class="table table-bordered table-sm">
       <thead class="thead-dark">
       <tr>
-        <th scope="col">Tipo de Documento</th>
-        <th scope="col">No. Documento</th>
-        <th scope="col">Nombre</th>
+        <th scope="col">Documento</th>
+        <th scope="col">Tipo identificacion Causante</th>
+        <th scope="col">N. documento Causante</th>
+        <th scope="col">Tipo identificacion Benef</th>
+        <th scope="col">N. documento Benef</th>
         <th scope="col">Código de Transacción OBP</th>
       </tr>
       </thead>
       <tbody th:each="item : ${docsService}">
       <td th:text="${item.tipoDocumento}"></td>
-      <td th:text="${item.tipoDocumentoB}"></td>
+      <td th:text="${item.tipoIdentificacionC}"></td>
       <td th:text="${item.tipoDocumentoC}"></td>
       <td th:text="${item.tipoIdentificacionB}"></td>
+      <td th:text="${item.tipoDocumentoB}"></td>
+      <td th:text="${item.codigoTransaccion}"></td>
       </tbody>
     </table>
   </div>
