@@ -1,8 +1,6 @@
 package com.demo_rentas.Controllers;
 
-import com.demo_rentas.DemoRentasApplication;
 import com.demo_rentas.Models.ResService;
-//import com.demo_rentas.Utils.AppProperties;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -11,9 +9,6 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -51,7 +46,9 @@ public class RentasController {
     @Value("${downloadLogs}")
     private String downloadLogs;
 
-    private static final Logger logger = LogManager.getLogger(DemoRentasApplication.class);
+    @Value("${downloadLogsSystem}")
+    private String downloadSystemLogs;
+
 
     @GetMapping("rentas")
     public String rentas() {
@@ -136,20 +133,12 @@ public class RentasController {
 
         try {
             response.setContentType("application/zip");
-            response.setHeader("Content-Disposition", "attachment; filename=archivosLogsRen.zip");
+            response.setHeader("Content-Disposition", "attachment; filename=archivosLogsSoliRentas.zip");
             OutputStream outputStream = response.getOutputStream();
             ZipOutputStream zipOut = new ZipOutputStream(outputStream);
 
-            File dir = new File(downloadLogs);
-            File[] files = dir.listFiles();
-
-            if (files != null) {
-                for (File file : files) {
-                    if (file.isFile() && file.getName().toLowerCase().endsWith(".txt")) {
-                        addToZipFileRen(file, zipOut);
-                    }
-                }
-            }
+            comprimirDirectorio(new File(downloadLogs), zipOut);
+            comprimirDirectorio(new File(downloadSystemLogs), zipOut);
 
             zipOut.close();
             outputStream.flush();
@@ -160,7 +149,20 @@ public class RentasController {
 
     }
 
-    private void addToZipFileRen(File file, ZipOutputStream zipOut) throws IOException {
+    public static void comprimirDirectorio(File directorio, ZipOutputStream zipOut) throws IOException {
+        File[] files = directorio.listFiles();
+        if (files != null) {
+            for (File file : files) {
+                if (file.isFile()) {
+                    addToZipFileRen(file, zipOut);
+                } else if (file.isDirectory()) {
+                    comprimirDirectorio(file, zipOut);
+                }
+            }
+        }
+    }
+
+    private static void addToZipFileRen(File file, ZipOutputStream zipOut) throws IOException {
         FileInputStream fileInput = new FileInputStream(file);
         ZipEntry zipEntry = new ZipEntry(file.getName());
         zipOut.putNextEntry(zipEntry);

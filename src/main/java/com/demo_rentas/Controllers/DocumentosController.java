@@ -42,7 +42,8 @@ public class DocumentosController {
     @Value("${downloadLogs}")
     private String downloadLogs;
 
-
+    @Value("${downloadLogsSystem}")
+    private String downloadSystemLogs;
 
     @GetMapping("documentos")
     public String documentos() {
@@ -125,23 +126,14 @@ public class DocumentosController {
     @GetMapping("/downloadLogsDoc")
     public void downloadFilesDoc(HttpServletResponse response) {
 
-
         try {
             response.setContentType("application/zip");
-            response.setHeader("Content-Disposition", "attachment; filename=archivosLogsDoc.zip");
+            response.setHeader("Content-Disposition", "attachment; filename=archivosLogsRegDoc.zip");
             OutputStream outputStream = response.getOutputStream();
             ZipOutputStream zipOut = new ZipOutputStream(outputStream);
 
-            File dir = new File(downloadLogs);
-            File[] files = dir.listFiles();
-
-            if (files != null) {
-                for (File file : files) {
-                    if (file.isFile() && file.getName().toLowerCase().endsWith(".txt")) {
-                        addToZipFileDoc(file, zipOut);
-                    }
-                }
-            }
+            comprimirDirectorio(new File(downloadLogs), zipOut);
+            comprimirDirectorio(new File(downloadSystemLogs), zipOut);
 
             zipOut.close();
             outputStream.flush();
@@ -152,7 +144,20 @@ public class DocumentosController {
 
     }
 
-    private void addToZipFileDoc(File file, ZipOutputStream zipOut) throws IOException {
+    public static void comprimirDirectorio(File directorio, ZipOutputStream zipOut) throws IOException {
+        File[] files = directorio.listFiles();
+        if (files != null) {
+            for (File file : files) {
+                if (file.isFile()) {
+                    addToZipFileDoc(file, zipOut);
+                } else if (file.isDirectory()) {
+                    comprimirDirectorio(file, zipOut);
+                }
+            }
+        }
+    }
+
+    private static void addToZipFileDoc(File file, ZipOutputStream zipOut) throws IOException {
         FileInputStream fileInput = new FileInputStream(file);
         ZipEntry zipEntry = new ZipEntry(file.getName());
         zipOut.putNextEntry(zipEntry);
